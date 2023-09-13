@@ -31,7 +31,20 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:students,email',
+        ]);
+    
+        Student::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+        ]);
+    
+        return redirect()->route('student.index');
+    }
 
     /**
      * Display the specified resource.
