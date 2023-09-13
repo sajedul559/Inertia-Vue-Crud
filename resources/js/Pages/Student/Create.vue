@@ -1,43 +1,40 @@
-<script setup>
-
-import { Head } from '@inertiajs/vue3';
-
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
-</script>
-
 <template>
-    <Head title="Profile" />
-
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">student </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <UpdateProfileInformationForm
-                        :must-verify-email="mustVerifyEmail"
-                        :status="status"
-                        class="max-w-xl"
-                    />
-                </div>
-
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <UpdatePasswordForm class="max-w-xl" />
-                </div>
-
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <DeleteUserForm class="max-w-xl" />
-                </div>
-            </div>
+    <div>
+      <h2>Create Student</h2>
+      <form @submit.prevent="createStudent">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="student.name" required>
         </div>
-    </AuthenticatedLayout>
-</template>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" v-model="student.email" required>
+        </div>
+        <button type="submit">Create</button>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        student: {
+          name: '',
+          email: '',
+        },
+      };
+    },
+    methods: {
+      async createStudent() {
+        try {
+          const response = await this.$inertia.post('/students/create', this.student);
+          // Optionally, you can show a success message or handle other actions here.
+        } catch (error) {
+          // Handle error, show validation errors, etc.
+        }
+      },
+    },
+  };
+  </script>
+  

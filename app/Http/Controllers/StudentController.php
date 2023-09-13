@@ -25,16 +25,13 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Student/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   
 
     /**
      * Display the specified resource.
@@ -47,17 +44,33 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $student = Student::findOrFail($id);
+        
+        return Inertia::render('EditStudent', [
+            'student' => $student,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $student = Student::findOrFail($id);
+    
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:students,email,' . $student->id,
+        ]);
+    
+        $student->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+        ]);
+    
+        return redirect()->route('student.index');
     }
 
     /**

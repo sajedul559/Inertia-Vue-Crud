@@ -38,12 +38,12 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('/students', [StudentController::class, 'index']);
-Route::get('/students/create', [StudentController::class, 'create']);
-Route::post('/students', [StudentController::class, 'store']);
-Route::get('/students/{id}/edit', [StudentController::class, 'edit']);
-Route::put('/students/{id}', [StudentController::class, 'update']);
-Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+    // Route::get('/students', [StudentController::class, 'index']);
+Route::get('/students/create', [StudentController::class, 'create'])->name('student.create');
+Route::post('/students/create', [StudentController::class, 'store'])->name('student.create');
+Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('student.edit');
+Route::put('/students/{id}', [StudentController::class, 'update'])->name('student.update');
+Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
 
 });
 

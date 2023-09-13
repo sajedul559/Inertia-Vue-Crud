@@ -68,7 +68,8 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
-                                        <DropdownLink :href="route('student.index')"> Create User </DropdownLink>
+                                        <DropdownLink :href="route('student.create')">Student Create </DropdownLink>
+                                        <DropdownLink :href="route('student.index')">Student Index </DropdownLink>
                                     </template>
                                 </Dropdown>
                             </div>
